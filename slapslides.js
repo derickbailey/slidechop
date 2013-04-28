@@ -5,11 +5,21 @@ var board = new Five.Board();
 
 var button;
 
+function execCallback(error, stdout, stderr){
+  if (error){
+    console.log("ERROR: " + error);
+  }
+
+  if (stdout){
+    console.log("RESPONSE: " + stdout);
+  }
+}
+
 board.on("ready", function(){
 
   console.log("ready");
 
-  button = new Five.Button(8);
+  button = new Five.Button(2);
 
   board.repl.inject({
     button: button
@@ -20,19 +30,12 @@ board.on("ready", function(){
   });
 
   button.on("hold", function(){
+    //cp.exec("./MouseTools -rightClick", execCallback);
     console.log("hold");
   });
 
   button.on("up", function(){
-    cp.exec("./MouseTools -leftClick", function(error, stdout, stderr){
-      if (error){
-        console.log("ERROR: " + error);
-      }
-
-      if (stdout){
-        console.log("RESPONSE: " + stdout);
-      }
-    });
+    cp.exec("./MouseTools -leftClick", execCallback);
     console.log("up");
   });
 
