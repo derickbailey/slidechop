@@ -19,7 +19,9 @@ board.on("ready", function(){
 
   console.log("ready");
 
-  button = new Five.Button(2);
+  button = new Five.Button({
+    pin: 2
+  });
 
   board.repl.inject({
     button: button
@@ -30,7 +32,6 @@ board.on("ready", function(){
   });
 
   button.on("hold", function(){
-    //cp.exec("./MouseTools -rightClick", execCallback);
     console.log("hold");
   });
 
