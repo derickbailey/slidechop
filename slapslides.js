@@ -28,16 +28,17 @@ board.on("ready", function(){
   });
 
   button.on("down", function(){
-    console.log("down");
+    cp.exec("./MouseTools -leftClick", execCallback);
+    console.log("down : next slide");
   });
 
   button.on("hold", function(){
-    console.log("hold");
+    cp.exec("./MouseTools -rightClick", execCallback);
+    console.log("hold : previous slide");
   });
 
-  button.on("up", function(){
-    cp.exec("./MouseTools -leftClick", execCallback);
-    console.log("up");
-  });
+//   button.on("up", function(){
+//     console.log("up");
+//   });
 
 });
