@@ -15,6 +15,9 @@ function execCallback(error, stdout, stderr){
   }
 }
 
+var UP = 0, DOWN = 1, HOLD = 2;
+var status = UP;
+
 board.on("ready", function(){
 
   console.log("ready");
@@ -28,17 +31,22 @@ board.on("ready", function(){
   });
 
   button.on("down", function(){
-    cp.exec("./MouseTools -leftClick", execCallback);
-    console.log("down : next slide");
+    status = DOWN;
   });
 
   button.on("hold", function(){
-    cp.exec("./MouseTools -rightClick", execCallback);
-    console.log("hold : previous slide");
+    status = HOLD;
   });
 
-//   button.on("up", function(){
-//     console.log("up");
-//   });
+  button.on("up", function(){
+    if (status === DOWN){
+      cp.exec("./MouseTools -leftClick", execCallback);
+      console.log("next slide");
+    } else {
+      cp.exec("./MouseTools -rightClick", execCallback);
+      console.log("previous slide");
+    }
+    status = UP;
+  });
 
 });
